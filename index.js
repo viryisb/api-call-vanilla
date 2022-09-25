@@ -1,5 +1,21 @@
 const API_URL = 'https://jsonplaceholder.typicode.com';
-const xhr = new XMLHttpRequest();
+const HTMLResponse = document.querySelector('#app');
+const ul = document.createElement('ul');
+
+fetch(`${API_URL}/users`)
+  .then((response) => response.json())
+  .then((users) => {
+    users.forEach((user) => {
+      let elem = document.createElement('li');
+      elem.appendChild(document.createTextNode(`${user.name} ${user.email}`));
+      ul.appendChild(elem);
+    });
+    HTMLResponse.appendChild(ul);
+    /*  const tpl = users.map((user) => `<li>${user.name} ${user.email}</li>`);
+    HTMLResponse.innerHTML = `<ul>${tpl}</ul>`; */
+  });
+
+/* const xhr = new XMLHttpRequest();
 
 function onRequestHandler() {
   if (this.readyState === 4 && this.status === 200) {
@@ -17,4 +33,4 @@ function onRequestHandler() {
 }
 xhr.addEventListener('load', onRequestHandler);
 xhr.open('GET', `${API_URL}/users`);
-xhr.send();
+xhr.send(); */
